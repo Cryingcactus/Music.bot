@@ -14,10 +14,15 @@ exports.run = async (message, args, listi, queue, skip) => {
   if (skip == true) {
     if (queue[listi].playing) {
       //queue[listi].skip = true;
-      //queue[listi].dispatcher.removeListener('end', async function() {await play(connection, streamOptions, listi, queue);});
+      //queue[listi].dispatcher.pause();
+      queue[listi].skip = true;
       queue[listi].dispatcher.emit('end');
       console.log("Skipped song");
-
+      //BUG HERE for when you skip and its on the last index of the list
+      // if((queue[listi].list.length - 1) == queue[listi].index) {
+      //   return message.channel.send('There are no more song in the queue to skip.');
+      // }
+      await play(connection, streamOptions, listi, queue);
 
     }
     else {
@@ -72,13 +77,23 @@ async function play(connection, streamOptions, listi, queue) {
   queue[listi].dispatcher = await connection.playStream(ytdl(queue[listi].list[queue[listi].index], { filter : 'audioonly' }), streamOptions);
   queue[listi].dispatcher.once('end', function() {
     queue[listi].index++;
+    console.log(`new index: ${queue[listi].index}`);
+    console.log(`max index: ${queue[listi].list.length}`);
+    if(queue[listi].skip == true) {
+      queue[listi].skip = false;
+      return;
+    }
+    //else if(queue[listi].skip == true && ((queue[listi].list.length - 1) == (queue[listi].index))) {
+    //  return message.channel.send('There are no more song in the queue to skip.');
+    //}
     if (queue[listi].list.length > queue[listi].index) {
+      console.log(`now playing: ${queue[listi].list[queue[listi].index]}`);
       play(connection, streamOptions, listi, queue);
     }
     else {
       finished();
       queue[listi].playing = false;
-      message.member.guild.me.voiceChannel.leave();
+      //message.member.guild.me.voiceChannel.leave();
     }
   });
 }

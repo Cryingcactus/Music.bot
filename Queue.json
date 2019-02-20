@@ -1,51 +1,14 @@
 [
   {
     "name": "current",
-    "playing": true,
-    "index": 7,
-    "list": [
-      "https://www.youtube.com/watch?v=h2dJ-JUzhVs",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k"
-    ]
-  },
-  {
-    "name": "test",
     "playing": false,
+    "skip": false,
     "index": 0,
+    "dispatcher": "",
     "list": [
-      "https://www.youtube.com/watch?v=h2dJ-JUzhVs",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k"
-    ]
-  },
-  {
-    "name": "test2",
-    "playing": false,
-    "index": 0,
-    "list": [
-      "https://www.youtube.com/watch?v=h2dJ-JUzhVs",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=2ips2mM7Zqw",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k",
-      "https://www.youtube.com/watch?v=H8NCOA2bK6k"
+      "https://www.youtube.com/watch?v=nM0xDI5R50E",
+      "https://www.youtube.com/watch?v=nM0xDI5R50E",
+      "https://www.youtube.com/watch?v=2ips2mM7Zqw"
     ]
   }
 ]

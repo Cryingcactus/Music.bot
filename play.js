@@ -1,61 +1,84 @@
 const ytdl = require('ytdl-core');
 const Discord = require('discord.js');
 var fs = require('fs');
+const streamOptions = { seek: 0, volume: 1, bitrate: 96000};
 
-exports.run = async (message, args, listi) => {
-  var data = fs.readFileSync('Queue.json');
-  var queue = JSON.parse(data);
-  var jqueue = '';
+exports.run = async (message, args, listi, queue, skip) => {
+  //variables for reading files
+  // var data = fs.readFileSync('Queue.json');
+  // var queue = JSON.parse(data);
+  // var jqueue = '';
+  var connection = await message.member.voiceChannel.join();
+  //-------------------------------------------------------------------------------------------------
+  //here we need to check if the skip is true. if it is it will skip the validation steps
+  if (skip == true) {
+    if (queue[listi].playing) {
+      //queue[listi].skip = true;
+      //queue[listi].dispatcher.removeListener('end', async function() {await play(connection, streamOptions, listi, queue);});
+      queue[listi].dispatcher.emit('end');
+      console.log("Skipped song");
 
-  if (!args) return message.channel.send('Please input a valid url.');
-  //console.log("HI");
-  //console.log(args[0]);
-  if (args.length == 0) return message.channel.send('Please input a valid url.');
 
-  // Validate Info
-  let validate = await ytdl.validateURL(args[0]);
-
-  // Check Validation
-  if (!validate) return message.channel.send('Please input a valid url.');
-
-  const streamOptions = { seek: 0, volume: 1 };
-
-  console.log("joined channel");
-  if (queue[0].playing) {
-    queue[0].list.push(args[0]);
+    }
+    else {
+      console.log("No songs to skip");
+    }
   }
   else {
-    var connection = await message.member.voiceChannel.join();
-    queue[0].playing = true;
-    queue[0].list.push(args[0]);
+    //-------------------------------------------------------------------------------------------------
+    // Validate Info
+    if (!args) return message.channel.send('Please input a valid url.');
+    if (args.length == 0) return message.channel.send('Please input a valid url.');
+    let validate = await ytdl.validateURL(args[0]);
+
+    //-------------------------------------------------------------------------------------------------
+    // Check Validation
+    if (!validate) return message.channel.send('Please input a valid url.');
+
+    //-------------------------------------------------------------------------------------------------
+    //check if the playlist is already playing
+    //if its playing it will add the current song to the lists
+    //if its not playing it will connect, add song to queue, and set playing to true
+    if (queue[listi].playing) {
+      queue[listi].list.push(args[0]);
+    }
+    else {
+      var connection = await message.member.voiceChannel.join();
+      console.log("joined channel");
+      queue[listi].playing = true;
+      queue[listi].list.push(args[0]);
+      //finally starts the play function
+      await play(connection, streamOptions, listi, queue);
+    }
   }
-  jqueue = JSON.stringify(queue, null, 2);
-  fs.writeFileSync('Queue.json', jqueue, finished);
-  play(connection, streamOptions);
+
+  //-------------------------------------------------------------------------------------------------
+
+
+
+  //-------------------------------------------------------------------------------------------------
+  //writes the changes to the file holding the information on the queue's
+  // jqueue = JSON.stringify(queue, null, 2);
+  // fs.writeFileSync('Queue.json', jqueue, finished);
 }
 
-async function play(connection, streamOptions, listi) {
+
+
+async function play(connection, streamOptions, listi, queue) {
   if(listi == undefined) {
     listi = 0;
   }
-  data = fs.readFileSync('Queue.json');
-  queue = JSON.parse(data);
-  jqueue = '';
   queue[listi].playing = true;
-  var dispatcher = await connection.playStream(ytdl(queue[listi].list[queue[listi].index], { filter : 'audioonly' }), streamOptions);
-  dispatcher.once('end', function() {
+  queue[listi].dispatcher = await connection.playStream(ytdl(queue[listi].list[queue[listi].index], { filter : 'audioonly' }), streamOptions);
+  queue[listi].dispatcher.once('end', function() {
     queue[listi].index++;
-    jqueue = JSON.stringify(queue, null, 2);
-    fs.writeFileSync('Queue.json', jqueue, finished);
     if (queue[listi].list.length > queue[listi].index) {
-      play(connection, streamOptions, listi);
+      play(connection, streamOptions, listi, queue);
     }
     else {
       finished();
-      queue[0].playing = false;
-      jqueue = JSON.stringify(queue, null, 2);
-      fs.writeFileSync('Queue.json', jqueue, finished);
-      message.guild.me.voiceChannel.leave();
+      queue[listi].playing = false;
+      message.member.guild.me.voiceChannel.leave();
     }
   });
 }

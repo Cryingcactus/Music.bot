@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
 const opus = require('opusscript');
-const { prefix, token } = require('./botconfig.json');
+const { prefix, token } = require('../botconfig.json');
 const play = require('./play.js');
 const leave = require('./leave.js');
 const save = require('./save.js');

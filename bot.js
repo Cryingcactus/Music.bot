@@ -56,7 +56,8 @@ client.on('message', message => {
             queue[0].dispatcher.pause();
             queue[0].dispatcher = '';
             queue[0].index = 0;
-            console.log(message);
+			queue[0].np.delete();
+			queue[0].npq.delete();
             if (message.member.guild.me.voiceChannel != undefined) {
                 message.member.guild.me.voiceChannel.leave();
             }
@@ -67,10 +68,8 @@ client.on('message', message => {
         } else if (command === 'clear') {
             queue[0].list = [];
         }
-
         //after all the commands have been checked it will handle the deleting messages and showing songs being played
         message.delete();
-        //nowplaying.run(message, args, queue);
     }
 });
 

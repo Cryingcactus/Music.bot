@@ -2,13 +2,17 @@ const ytdl = require('ytdl-core');
 const Discord = require('discord.js');
 //const search = require('yt-search');
 var fs = require('fs');
-const streamOptions = { seek: 0, volume: 1, bitrate: 96000};
+const streamOptions = {
+    seek: 0,
+    volume: 1,
+    bitrate: 96000
+};
 
 exports.run = function(searchTerms) {
     return new Promise(function(resolve, reject) {
         const search = require('yt-search');
         //console.log( args.toString() );
-        search(searchTerms, function (err, r) {
+        search(searchTerms, function(err, r) {
             if (err) {
                 reject();
             }

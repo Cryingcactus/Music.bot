@@ -3,18 +3,18 @@ const Discord = require('discord.js');
 var fs = require('fs');
 
 exports.run = async (listi) => {
-  //variables for reading files
-  var data = fs.readFileSync('Queue.json');
-  var queue = JSON.parse(data);
-  var jqueue = '';
+    //variables for reading files
+    var data = fs.readFileSync('Queue.json');
+    var queue = JSON.parse(data);
+    var jqueue = '';
 
-  queue[listi].index = 0;
-  queue[listi].list = [];
+    queue[listi].index = 0;
+    queue[listi].list = [];
 
-  jqueue = JSON.stringify(queue, null, 2);
-  fs.writeFileSync('Queue.json', jqueue, finished);
+    jqueue = JSON.stringify(queue, null, 2);
+    fs.writeFileSync('Queue.json', jqueue, finished);
 }
 
 function finished(err) {
-  console.log('Done');
+    console.log('Done');
 }

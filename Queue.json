@@ -1,5 +1,4 @@
-[
-  {
+[{
     "name": "current",
     "playing": false,
     "skip": false,
@@ -13,5 +12,4 @@
     "info": [
 
     ]
-  }
-]
+}]

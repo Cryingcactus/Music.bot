@@ -62,21 +62,14 @@ exports.run = async (message, args, listi, queue, skip) => {
       // Check Validation
       if (!validate) {
 
-          args[0] = new Promise( function (resolve, reject) {
-              //search.run(args);
-              //learn about promises. No clue whats happening with this code. HEADACHES 
-              if (search.run(args)) {
-                reject();
-            } else {
-                resolve();
-            }
-        });
-          console.log(`after inside ${url}`);
+          //args[0] =
+          search.run(args);
+          console.log(`args ${args[0]}`);
       }
 
 
 
-      console.log(`afterafter`);
+      //console.log(`afterafter`);
 
       //-------------------------------------------------------------------------------------------------
       //check if the playlist is already playing

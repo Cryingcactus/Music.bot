@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 var fs = require('fs');
 const streamOptions = { seek: 0, volume: 1, bitrate: 96000};
 
-exports.run = async (args) => {
+exports.run = function(args) {
 
     const search = require( 'yt-search' );
     //console.log( args.toString() );
@@ -17,6 +17,7 @@ exports.run = async (args) => {
 
         const firstResult = videos[ 0 ];
 
-        console.log( firstResult );
+        console.log(`URL ${firstResult.url }`);
+        args[0] = firstResult.url;
     } );
 }

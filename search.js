@@ -4,11 +4,11 @@ const Discord = require('discord.js');
 var fs = require('fs');
 const streamOptions = { seek: 0, volume: 1, bitrate: 96000};
 
-exports.run = function(args) {
+exports.run = function(searchTerms) {
     return new Promise(function(resolve, reject) {
         const search = require('yt-search');
         //console.log( args.toString() );
-        search(args.toString(), function (err, r) {
+        search(searchTerms, function (err, r) {
             if (err) {
                 reject();
             }
@@ -19,7 +19,7 @@ exports.run = function(args) {
             const firstResult = videos[0];
 
             console.log(`URL ${firstResult.url }`);
-            resolve(args[0] = firstResult.url);
+            resolve(firstResult.url);
         });
     });
 }

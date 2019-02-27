@@ -62,8 +62,8 @@ exports.run = async (message, args, listi, queue, skip) => {
       // Check Validation
       if (!validate) {
 
-          //args[0] =
-          search.run(args);
+
+          await search.run(args);
           console.log(`args ${args[0]}`);
       }
 

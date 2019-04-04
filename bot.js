@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
 const opus = require('opusscript');
-const prefix = '!';
-const token = 'NTYwODA0ODQzNDkzNzg1NjEw.D35R0Q.0L1BSCk-yE1C_eGesKDnHef4OBw';
+const {
+    prefix,
+    token
+} = require('./botconfig.json');
 const play = require('./play.js');
 const leave = require('./leave.js');
 const clear = require('./clear.js');

@@ -2,7 +2,7 @@ const ytdl = require('ytdl-core');
 const Discord = require('discord.js');
 var fs = require('fs');
 
-exports.run = (message, args, club) => {
+exports.run = (message, args) => {
     let r = fs.readFileSync('playlists.json');
     let read = JSON.parse(r);
     if (!args) return message.channel.send('Please enter a name for the playlist.');
@@ -15,12 +15,7 @@ exports.run = (message, args, club) => {
         console.log("There is already a list saved with this name.");
         return;
     }
-
-    let playlist = {
-        songs: club.get(message.guild.id).player.songs,
-        createdBy: message.member.displayName
-    }
-    read[title] = playlist;
+    read[title] = {};
     let write = JSON.stringify(read, null, 2);
     fs.writeFileSync('playlists.json', write);
     console.log(`Saved playlist ${title}`);

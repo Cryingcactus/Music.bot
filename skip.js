@@ -7,20 +7,13 @@ const streamOptions = {
     volume: 1
 };
 
-exports.run = async (message, args, listi, queue) => {
-    var connection = await message.member.voiceChannel.join();
-    if (queue[listi].playing) {
-        //queue[listi].skip = true;
-        //queue[listi].dispatcher.pause();
-        queue[listi].skip = true;
-        queue[listi].dispatcher.emit('end');
+exports.run = async (message, servers) => {
+    let myServer = await servers.get(message.guild.id);
+    //console.log(myServer);
+    if (myServer) {
+        myServer.connection.dispatcher.end();
+        myServer.skip = true;
         console.log("Skipped song");
-        //BUG HERE for when you skip and its on the last index of the list
-        // if((queue[listi].list.length - 1) == queue[listi].index) {
-        //   return message.channel.send('There are no more song in the queue to skip.');
-        // }
-        await play(connection, streamOptions, listi, queue);
-
     } else {
         console.log("No songs to skip");
     }
